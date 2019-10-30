@@ -1,5 +1,5 @@
 {
-    "name": "sockets-basic-01",
+    "name": "node-sockets-chat",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
