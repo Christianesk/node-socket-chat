@@ -1,5 +1,6 @@
 const { io } = require('../server');
 const { Users } = require('../classes/users');
+const { createMessage } = require('../utils/utils')
 
 const users = new Users();
 
@@ -20,11 +21,20 @@ io.on('connection', (client) => {
         callback(usersAdd);
     });
 
+    client.on('createMessage', (user) => {
+
+        let userMessage = users.getUserById(client.id);
+
+        let message = createMessage(userMessage.name, userMessage.message);
+
+        client.broadcast.emit('createMessage', message);
+    });
+
 
     client.on('disconnect', () => {
         let userDeleted = users.deleteUserById(client.id);
 
-        client.broadcast.emit('createMessage', { user: 'Administrador', message: `${userDeleted.name} abandono el chat` });
+        client.broadcast.emit('createMessage', createMessage('Admin', `${userDeleted.name} salió`));
         client.broadcast.emit('userList', users.getUsers());
     });
 });
