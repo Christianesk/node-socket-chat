@@ -4,6 +4,7 @@ class Users {
         this.users = [];
     }
 
+    //Add User to Group
     addUser(id, name) {
         let user = { id, name };
 
@@ -11,7 +12,6 @@ class Users {
 
         return this.users;
     }
-
 
     getUserById(id) {
         let user = this.users.filter(user => user.id === id)[0];
