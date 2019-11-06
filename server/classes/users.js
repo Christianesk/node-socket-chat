@@ -4,9 +4,9 @@ class Users {
         this.users = [];
     }
 
-    //Add User to Group
-    addUser(id, name) {
-        let user = { id, name };
+    //Add User to room
+    addUser(id, name, room) {
+        let user = { id, name, room };
 
         this.users.push(user);
 
@@ -24,7 +24,8 @@ class Users {
     }
 
     getUsersByRoom(room) {
-
+        let userInRoom = this.users.filter(user => user.room === room);
+        return userInRoom;
     }
 
     deleteUserById(id) {

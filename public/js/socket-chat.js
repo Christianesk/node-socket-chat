@@ -2,13 +2,14 @@ var socket = io();
 
 var params = new URLSearchParams(window.location.search);
 
-if (params.has('nombre')) {
+if (!params.has('name') || !params.has('room')) {
     window.location = 'index.html';
-    throw new Error('El nombre es necesario');
+    throw new Error('El nombre y sala son necesarios');
 }
 
 var user = {
-    name: params.get('name')
+    name: params.get('name'),
+    room: params.get('room')
 }
 
 socket.on('connect', function () {
@@ -34,9 +35,9 @@ socket.on('disconnect', function () {
     console.log('respuesta server: ', resp);
 });*/
 // Listen to information
-socket.on('createMessage', function (mensaje) {
+socket.on('createMessage', function (message) {
 
-    console.log('Servidor:', mensaje);
+    console.log('Gruop Message:', message);
 
 });
 
@@ -45,4 +46,9 @@ socket.on('userList', function (users) {
 
     console.log(users);
 
+});
+
+//Private message
+socket.on('privateMessage', function (message) {
+    console.log('Private message: ', message);
 });
