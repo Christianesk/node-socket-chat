@@ -15,7 +15,7 @@ var user = {
 socket.on('connect', function () {
 
     socket.emit('enterChat', user, function (resp) {
-        console.log('Users online', resp);
+        renderUser(resp);
     });
 });
 
@@ -26,25 +26,16 @@ socket.on('disconnect', function () {
 
 });
 
-
-// Send information
-/*ocket.emit('createMessage', {
-    usuario: 'Fernando',
-    mensaje: 'Hola Mundo'
-}, function (resp) {
-    console.log('respuesta server: ', resp);
-});*/
 // Listen to information
 socket.on('createMessage', function (message) {
-
-    console.log('Gruop Message:', message);
-
+    renderMessage(message, false);
+    scrollBottom();
 });
 
 //Listen to user changes (Login and logout)
 socket.on('userList', function (users) {
 
-    console.log(users);
+    renderUser(users);
 
 });
 
